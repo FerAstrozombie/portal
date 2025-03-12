@@ -1,4 +1,5 @@
 const express = require("express");
+const connectMongoDB = require("./config/dbOptions.js");
 const cors = require('cors');
 const config = require("./config/options.js");
 const pacientesRouter = require("./routes/index.js");
@@ -11,6 +12,9 @@ app.use(cors(
 ));
 
 app.use(express.json());
+
+//inicio de la base de datos
+connectMongoDB();
 
 //El puerto es traido desde el .env y sino el de defecto
 const PORT = process.env.PORT || 8081;

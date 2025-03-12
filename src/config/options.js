@@ -1,8 +1,10 @@
 const dotenv = require("dotenv");
 
+dotenv.config({ path: "./.env"});
+
 const options = {
     mongo:{
-        url: ""
+        url: process.env.DB_CONNECTION
     },
     application: {
         cors: {
