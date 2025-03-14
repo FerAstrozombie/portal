@@ -49,11 +49,17 @@ class PortalController {
         }
     };
 
-    static async updateImport (req, res){
-        const id = req.params.id;
-        const response = await ImportSevice.getImportById(id);
-        const responseUpdate = await ImportSevice.updateImport(id, req.body);
-        res.status(200).json({"message" : responseUpdate});
+    static async updatePaciente(req, res) {
+        try {
+            const id = req.params.id;
+            const responseUpdate = await PortalService.updatePaciente(id, req.body);
+            res.status(200).json({ "message": responseUpdate });
+        } catch (error) {
+            res.status(400).json({
+                status: "ERROR ❌ ",
+                message: `Hubo un error ❌ ${error}`
+            })
+        }
     };
 }
 
