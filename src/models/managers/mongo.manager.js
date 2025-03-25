@@ -34,7 +34,7 @@ class MongoCointainer{
         }
     }
 
-    async updateById(body, id){
+    async updateById(id, body){
         try {
             await this.model.findByIdAndUpdate(id, body,{new:true});
             return {message:"Update successfully"}

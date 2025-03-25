@@ -18,7 +18,7 @@ class PortalServices {
     }
 
     static async updatePaciente(id, body){
-        return await PortalManager.updateById(body, id);
+        return await PortalManager.updateById(id, body);
     }
 }
 

@@ -6,8 +6,10 @@ router.get('/', PortalController.getPacientes);
 
 router.post('/paciente', PortalController.savePaciente);
 
-router.delete('/paciente/:id', PortalController.deleteById);
+router.delete('/deletePaciente/:id', PortalController.deleteById);
 
-router.patch('/paciente/:id', PortalController.updatePaciente);
+router.patch('/updatePaciente/:id', PortalController.updatePaciente);
+
+router.get('/paciente/:id', PortalController.getById);
 
 module.exports = router;

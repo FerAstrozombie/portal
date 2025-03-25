@@ -13,7 +13,7 @@ const portalSchema = new mongoose.Schema(
             required: true
         },
         dni:{
-            type: String,
+            type: Number,
             required:true,
             unique : true
         },
@@ -26,7 +26,7 @@ const portalSchema = new mongoose.Schema(
             required:true
         },
         codigoPostal:{
-            type: String,
+            type: Number,
             required:true
         },
         fechaNacimiento:{
