@@ -1,10 +1,11 @@
 const express = require('express');
 const PortalController = require("../../controllers/portalController.js");
+const upload = require('../../libs/storage.js');
 const router = express.Router();
 
 router.get('/', PortalController.getPacientes);
 
-router.post('/paciente', PortalController.savePaciente);
+router.post('/paciente', upload.single("imagenAvatar"), PortalController.savePaciente);
 
 router.delete('/deletePaciente/:id', PortalController.deleteById);
 

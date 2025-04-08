@@ -1,6 +1,7 @@
 const express = require("express");
 const connectMongoDB = require("./config/dbOptions.js");
 const cors = require('cors');
+const path = require('path');
 const config = require("./config/options.js");
 const pacientesRouter = require("./routes/index.js");
 
@@ -12,6 +13,8 @@ app.use(cors(
 ));
 
 app.use(express.json());
+
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 //inicio de la base de datos
 connectMongoDB();

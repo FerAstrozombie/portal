@@ -1,3 +1,4 @@
+const PortalModel = require("../models/portalModel.js");
 const PortalService = require("../services/portal.services.js");
 
 class PortalController {
@@ -15,15 +16,46 @@ class PortalController {
 
     static async savePaciente(req, res) {
         try {
-            const response = await PortalService.savePaciente(req.body);
-            res.status(200).json({ "paciente": response })
+            const {
+                nombre,
+                apellido,
+                dni,
+                email,
+                direccion,
+                codigoPostal,
+                fechaNacimiento,
+                nacionalidad,
+                cobertura
+            } = req.body;
+
+            const file = req.file; // Archivo subido por Multer
+            const avatarUrl = file ? `${req.protocol}://${req.get('host')}/uploads/${file.filename}` : null;
+            const paciente = PortalModel({
+                nombre,
+                apellido,
+                dni,
+                email,
+                direccion,
+                codigoPostal,
+                fechaNacimiento,
+                nacionalidad,
+                cobertura,
+                avatar: avatarUrl
+            });
+
+            const response = await PortalService.savePaciente(paciente);
+
+            res.status(200).json({
+                paciente: response
+            });
+
         } catch (error) {
             res.status(400).json({
                 status: "ERROR ❌ ",
                 message: `Hubo un error ❌ ${error}`
-            })
+            });
         }
-    };
+    }
 
     static async getById(req, res) {
         try {

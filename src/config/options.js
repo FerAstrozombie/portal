@@ -15,6 +15,10 @@ const options = {
                 }
             ]
         }
+    },
+    option:{
+        host: process.env.APP_HOST,
+        port: process.env.PORT
     }
 }
 
