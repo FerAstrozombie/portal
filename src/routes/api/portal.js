@@ -9,7 +9,7 @@ router.post('/paciente', upload.single("imagenAvatar"), PortalController.savePac
 
 router.delete('/deletePaciente/:id', PortalController.deleteById);
 
-router.patch('/updatePaciente/:id', PortalController.updatePaciente);
+router.patch('/updatePaciente/:id', upload.single("imagenAvatar"), PortalController.updatePaciente);
 
 router.get('/paciente/:id', PortalController.getById);
 
