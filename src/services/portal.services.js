@@ -1,4 +1,4 @@
-const PortalManager = require("../models/index.js");
+const { PortalManager } = require("../models/index.js");
 
 class PortalServices {
     static async getPacientes(){

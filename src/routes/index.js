@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const pacientesRouter = require("./api/portal.js");
+const cargadoresRouter = require("./api/auth.router.js");
 
 router.use(pacientesRouter);
+router.use(cargadoresRouter);
 
-module.exports = pacientesRouter;
+module.exports = {pacientesRouter, cargadoresRouter};

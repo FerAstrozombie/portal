@@ -3,7 +3,9 @@ const connectMongoDB = require("./config/dbOptions.js");
 const cors = require('cors');
 const path = require('path');
 const config = require("./config/options.js");
-const pacientesRouter = require("./routes/index.js");
+const { pacientesRouter } = require("./routes/index.js");
+const { cargadoresRouter } = require("./routes/index.js");
+const morgan = require('morgan');
 
 const app = express();
 
@@ -22,8 +24,11 @@ connectMongoDB();
 //El puerto es traido desde el .env y sino el de defecto
 const PORT = process.env.PORT || 8081;
 
+app.use(morgan('dev'));
+
 //configuracion de las rutas
 app.use("/", pacientesRouter);
+app.use("/cargadores", cargadoresRouter);
 
 // Puerto donde corre el servidor
 app.listen(PORT, () =>{

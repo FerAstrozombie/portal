@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { option } = require("../config/options.js");
 
 const portalColection = "portal";
 
@@ -51,10 +50,6 @@ const portalSchema = new mongoose.Schema(
     timestamps: true
 });
 
-portalSchema.methods.setImgUrl = function setImgUrl (filename) {
-    const { host, port } = option;
-    this.avatar = `${host}:${port}/public/${filename}`
-}
 const PortalModel = mongoose.model(portalColection, portalSchema);
 
 module.exports = PortalModel;
