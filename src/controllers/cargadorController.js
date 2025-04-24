@@ -17,7 +17,6 @@ class CargadorController {
         };
 
     static async saveCargador(req, res) {
-        console.log(req.body)
         try {
             const {
                 nombre,

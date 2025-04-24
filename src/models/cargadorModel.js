@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require('bcryptjs');
 
 const cargadorColection = "cargador";
 
@@ -21,7 +22,7 @@ const cargadorSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        contraseña:{
+        password:{
             type: String,
             required:true
         },
@@ -33,6 +34,16 @@ const cargadorSchema = new mongoose.Schema(
 {
     timestamps: true
 });
+
+// Método para encriptar la contraseña
+cargadorSchema.methods.encryptPassword = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+};
+
+// Método para comparar contraseñas
+cargadorSchema.methods.comparePassword = function(password) {
+    return bcrypt.compareSync(password, this.contraseña);
+};
 
 const ControlModel = mongoose.model(cargadorColection, cargadorSchema);
 
