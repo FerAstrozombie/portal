@@ -38,3 +38,29 @@ passport.use('local-signup', new LocalStrategy({
         return done(error, false);
     }
 }));
+
+passport.use('local-signin', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, async (req, email, password, done) => {
+    try {
+        if (!email || !password) {
+            return done(null, false, { message: "Por favor, ingrese su email y contraseña" });
+        }
+
+        const user = await CargadorModel.findOne({ email: email });
+        if (!user) {
+            return done(null, false, { message: "El usuario no existe" });
+        }
+
+        const isMatch = await user.comparePassword(password);
+        if (!isMatch) {
+            return done(null, false, { message: "Contraseña incorrecta" });
+        }
+
+        return done(null, user);
+    } catch (error) {
+        return done(error);
+    }
+}));

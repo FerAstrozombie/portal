@@ -1,11 +1,22 @@
 const express = require('express');
-const CargaController = require("../../controllers/cargadorController.js");
 const upload = require('../../libs/storage.js');
 const router = express.Router();
 const passport = require('passport');
 
-router.get('/signin', CargaController.getCargadores);
-
+router.get('/signin', (req, res, next) => {
+    const errorMessage = req.flash("error");
+    res.status(400).json({
+        error: errorMessage.length > 0 ? errorMessage[0] : "Error desconocido"
+    });
+});
+router.post('/signin', upload.single("imagenAvatar"), passport.authenticate("local-signin", {
+    successRedirect: "/",
+    failureRedirect: "/signin",
+    passReqToCallback: true,
+    failureFlash: true,
+}), (req, res) => {
+    console.log("Autenticación exitosa");
+});
 router.post('/signup', upload.single("imagenAvatar"), (req, res, next) => {
     passport.authenticate('local-signup', (err, user, info) => {
         if (err) {
@@ -19,7 +30,6 @@ router.post('/signup', upload.single("imagenAvatar"), (req, res, next) => {
         return res.redirect('/');
     })(req, res, next);
 });
-
 router.get('/signup', (req, res) => {
     const errorMessage = req.flash("signupMessage");
     res.status(400).json({

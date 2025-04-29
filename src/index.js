@@ -10,12 +10,15 @@ const passport = require('passport');
 const session = require('express-session');
 var flash = require('connect-flash');
 require('./passport/local-auth.js');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 app.use(cors({
-    origin: config.application.cors.server,
-    credentials: true,
+    origin: 'http://localhost:5173', // Cambia esto a la URL de tu frontend
+    credentials: true, // Permite el envío de cookies
 }));
+app.use(cookieParser());
+
 app.use(session({
     secret: "my_secret_session",
     resave: false,
