@@ -1,16 +1,17 @@
 const express = require('express');
 const PortalController = require("../../controllers/portalController.js");
 const upload = require('../../libs/storage.js');
+const { isAuthenticated } = require('./auth.router.js');
 const router = express.Router();
 
-router.get('/', PortalController.getPacientes);
+router.get('/', isAuthenticated, PortalController.getPacientes);
 
-router.post('/paciente', upload.single("imagenAvatar"), PortalController.savePaciente);
+router.post('/paciente', isAuthenticated, upload.single("imagenAvatar"), PortalController.savePaciente);
 
-router.delete('/deletePaciente/:id', PortalController.deleteById);
+router.delete('/deletePaciente/:id', isAuthenticated, PortalController.deleteById);
 
-router.patch('/updatePaciente/:id', upload.single("imagenAvatar"), PortalController.updatePaciente);
+router.patch('/updatePaciente/:id', isAuthenticated, upload.single("imagenAvatar"), PortalController.updatePaciente);
 
-router.get('/paciente/:id', PortalController.getById);
+router.get('/paciente/:id', isAuthenticated, PortalController.getById);
 
 module.exports = router;

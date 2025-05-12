@@ -93,11 +93,13 @@ class PortalController {
                 codigoPostal,
                 fechaNacimiento,
                 nacionalidad,
-                cobertura
+                cobertura,
+                avatar
             } = req.body;
-
             const file = req.file; // Archivo subido por Multer
-            const avatarUrl = file ? `${req.protocol}://${req.get('host')}/uploads/${file.filename}` : `${req.protocol}://${req.get('host')}/uploads/avatar.svg`; // URL del avatar
+            const avatarUrl = file
+            ? `${req.protocol}://${req.get('host')}/uploads/${file.filename}` // Si hay archivo, usa la nueva URL
+            : avatar;
             const paciente = {
                 nombre,
                 apellido,
